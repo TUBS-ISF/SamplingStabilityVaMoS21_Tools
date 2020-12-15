@@ -1,0 +1,2 @@
+module samplingVaMos21 {
+}
