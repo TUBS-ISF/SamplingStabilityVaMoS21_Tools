@@ -88,24 +88,30 @@ public class SimpleSampler {
 		CNF randomCNF = modelCNF.randomize(random); 
 		
 		
-		System.out.println("Create Sample ICPL");
-		cg = new SPLCAToolConfigurationGenerator(randomCNF.randomize(new Random(12)), "ICPL", 2, 1000);
+		System.out.println("### Create Sample ICPL");
+		cg = new SPLCAToolConfigurationGenerator(randomCNF, "ICPL", 2, 1000);
 		sampleIcpl = LongRunningWrapper.runMethod(cg);
 		
-		System.out.println("Create Sample Chvatal");
+		System.out.println("### Create Sample Chvatal");
 		cg = new SPLCAToolConfigurationGenerator(randomCNF, "Chvatal", 2, 1000);
 		sampleChv = LongRunningWrapper.runMethod(cg);
 		
-		System.out.println("Create Sample IncLing");
+		System.out.println("### Create Sample IncLing");
 		pcg = new PairWiseConfigurationGenerator(randomCNF, 1000);
 		sampleInc = LongRunningWrapper.runMethod(pcg);
 		
-		System.out.println("Create Sample Yasa");
+		System.out.println("### Create Sample Yasa");
 		twcg = new TWiseConfigurationGenerator(randomCNF, 2);
 		sampleYasa = LongRunningWrapper.runMethod(twcg);
 		
-		System.out.println("Create Sample Random");
-		rcg = new RandomConfigurationGenerator(randomCNF, 15); 
+//		int randomSampleSize = (sampleIcpl.size() + sampleChv.size() + sampleInc.size() + sampleYasa.size()) / 4;  
+		int randomSampleSize = sampleIcpl.size(); 
+		randomSampleSize = Math.max(randomSampleSize, sampleChv.size());
+		randomSampleSize = Math.max(randomSampleSize, sampleInc.size());
+		randomSampleSize = Math.max(randomSampleSize, sampleYasa.size());
+		
+		System.out.println("### Create Sample Random");
+		rcg = new RandomConfigurationGenerator(randomCNF, randomSampleSize); 
 		sampleRan = LongRunningWrapper.runMethod(rcg);
 		
 		Path outIcpl = organizer.buildOutputPath(timeStamp, "icpl", SAMPLENUMBER);

@@ -62,7 +62,8 @@ public class InputOrganizer {
 		for(File file : path.toFile().listFiles()) {
 			Sample sample = new Sample();
 			String timestamp = file.getName();
-			File algoFile = new File(file.getAbsolutePath()+algo);
+			String algoPath = file.getAbsolutePath()+"\\"+algo; 
+			File algoFile = new File(algoPath);
 			File sampleFile = algoFile.listFiles()[Integer.parseInt(sampleNum)]; 
 
 			for (File conf : sampleFile.listFiles()) {

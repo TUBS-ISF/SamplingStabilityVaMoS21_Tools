@@ -39,10 +39,11 @@ package de.tubs.isf.samplingstability.analysis;
 
 public class HungarianAlgorithm {
 
+	public static int step4Called = 0; 
 	// *******************************************//
 	// METHODS THAT PERFORM ARRAY-PROCESSING TASKS//
 	// *******************************************//
-
+	
 	public static double findLargest // Finds the largest element in a positive array.
 	(double[][] array)
 	// works for arrays where all values are >= 0.
@@ -121,17 +122,24 @@ public class HungarianAlgorithm {
 				break;
 			case 7:
 				done = true;
+				step4Called = 0; 
 				break;
 			}
 		} // end while
 
 		int[][] assignment = new int[array.length][2]; // Create the returned array.
 		for (int i = 0; i < mask.length; i++) {
+			boolean pairFound = false; 
 			for (int j = 0; j < mask[i].length; j++) {
 				if (mask[i][j] == 1) {
 					assignment[i][0] = i;
 					assignment[i][1] = j;
+					pairFound = true; 
 				}
+			}
+			if(!pairFound) {
+				assignment[i][0] = i; 
+				assignment[i][1] = -1; 
 			}
 		}
 
@@ -232,12 +240,17 @@ public class HungarianAlgorithm {
 		// if yes, cover the row and uncover the star's column. Repeat until no
 		// uncovered zeros are left
 		// and go to step 6. If not, save location of primed zero and go to step 5.
-
+		step4Called++;
+//		System.out.println("Step 4 called: " + step4Called + " times");
 		int[] row_col = new int[2]; // Holds row and col of uncovered zero.
 		boolean done = false;
 		while (done == false) {
 			row_col = findUncoveredZero(row_col, cost, rowCover, colCover);
-			if (row_col[0] == -1) {
+			if((step4Called >= mask.length*mask[0].length || step4Called == Integer.MAX_VALUE)) {
+				done=true; 
+				step = 7; 
+			}
+			else if (row_col[0] == -1) {
 				done = true;
 				step = 6;
 			} else {
@@ -263,7 +276,7 @@ public class HungarianAlgorithm {
 				}
 			}
 		}
-
+		
 		return step;
 	}
 
