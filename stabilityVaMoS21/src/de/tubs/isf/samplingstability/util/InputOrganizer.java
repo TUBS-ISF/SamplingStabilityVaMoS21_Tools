@@ -62,17 +62,19 @@ public class InputOrganizer {
 		for(File file : path.toFile().listFiles()) {
 			Sample sample = new Sample();
 			String timestamp = file.getName();
-			String algoPath = file.getAbsolutePath()+"\\"+algo; 
-			File algoFile = new File(algoPath);
-			File sampleFile = algoFile.listFiles()[Integer.parseInt(sampleNum)]; 
+			if(!timestamp.endsWith(".tar.gz")) {
+				String algoPath = file.getAbsolutePath()+"\\"+algo; 
+				File algoFile = new File(algoPath);
+				File sampleFile = algoFile.listFiles()[Integer.parseInt(sampleNum)]; 
 
-			for (File conf : sampleFile.listFiles()) {
-				if (conf.getName().endsWith(extension)) {
-					List<String> configuration = readContent(conf.toPath());
-					sample.add(configuration);
+				for (File conf : sampleFile.listFiles()) {
+					if (conf.getName().endsWith(extension)) {
+						List<String> configuration = readContent(conf.toPath());
+						sample.add(configuration);
+					}
 				}
+				sampleMap.put(timestamp, sample);
 			}
-			sampleMap.put(timestamp, sample);
 		}
 	}
 	

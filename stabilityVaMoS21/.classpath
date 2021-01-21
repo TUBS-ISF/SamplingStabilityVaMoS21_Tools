@@ -7,10 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SamplingStabVaMoS21"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AutoSamp_Util"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/FIDE_Util"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/FIDE3.7"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PLEDGE"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SPLCAT"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/test"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
